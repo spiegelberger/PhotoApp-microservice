@@ -35,6 +35,16 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<!-- Doesn't work properly without the version -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.193</version>
+			<scope>runtime</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
