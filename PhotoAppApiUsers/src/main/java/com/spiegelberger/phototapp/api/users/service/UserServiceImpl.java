@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spiegelberger.phototapp.api.users.data.UserEntity;
@@ -15,26 +16,30 @@ import com.spiegelberger.phototapp.api.users.shared.UserDto;
 public class UserServiceImpl implements UserService{
 	
 	UserRepository userRepository;
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 		
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, 
+					BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userRepository = userRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 
 
 	@Override
 	public UserDto createUser(UserDto userDetails) {
-		userDetails.setUserId(UUID.randomUUID().toString());
+		
+		//Set user's missing informations:
+		userDetails.setUserId(UUID.randomUUID().toString());		
+		userDetails.setEncryptedPassword(
+				bCryptPasswordEncoder.encode(userDetails.getPassword()));
 		
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		
 		//Converting dto object into entity object:
 		UserEntity userEntity=modelMapper.map(userDetails, UserEntity.class);
-		
-		//temporal solution:
-		userEntity.setEncryptedPassword("test");
 		
 		userRepository.save(userEntity);
 		
