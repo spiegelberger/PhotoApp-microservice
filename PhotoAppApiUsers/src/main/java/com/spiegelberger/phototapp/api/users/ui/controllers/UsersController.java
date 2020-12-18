@@ -1,6 +1,7 @@
 package com.spiegelberger.phototapp.api.users.ui.controllers;
 
 import javax.validation.Valid;
+import org.springframework.http.MediaType;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,6 +20,8 @@ import com.spiegelberger.phototapp.api.users.shared.UserDto;
 import com.spiegelberger.phototapp.api.users.ui.model.CreateUserRequestModel;
 import com.spiegelberger.phototapp.api.users.ui.model.CreateUserResponseModel;
 
+
+
 @RestController
 @RequestMapping("/users")
 public class UsersController {
@@ -36,7 +39,9 @@ public class UsersController {
 	}
 	
 	
-	@PostMapping 
+	@PostMapping (
+			consumes= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+			produces ={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<CreateUserResponseModel>createUser(@Valid @RequestBody CreateUserRequestModel userDetails) {
 		
 		ModelMapper modelMapper = new ModelMapper();
