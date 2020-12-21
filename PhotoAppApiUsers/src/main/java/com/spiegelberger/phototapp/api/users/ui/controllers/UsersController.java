@@ -35,7 +35,8 @@ public class UsersController {
 	
 	@GetMapping("/status/check")
 	public String status() {
-		return "Users microservice is working on port " + env.getProperty("local.server.port");
+		return "Users microservice is working on port " + env.getProperty("local.server.port") +
+				", with token = "  + env.getProperty("token.secret");
 	}
 	
 	
