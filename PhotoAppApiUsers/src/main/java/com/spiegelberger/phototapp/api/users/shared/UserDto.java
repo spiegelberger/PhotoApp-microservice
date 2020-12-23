@@ -1,6 +1,9 @@
 package com.spiegelberger.phototapp.api.users.shared;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.spiegelberger.phototapp.api.users.ui.model.AlbumResponseModel;
 
 public class UserDto implements Serializable{
 
@@ -12,8 +15,15 @@ public class UserDto implements Serializable{
 	//public id:
 	private String userId;
 	private String encryptedPassword;
+	private List<AlbumResponseModel> albumsList;
 	
 	
+	public List<AlbumResponseModel> getAlbumsList() {
+		return albumsList;
+	}
+	public void setAlbumsList(List<AlbumResponseModel> albumsList) {
+		this.albumsList = albumsList;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

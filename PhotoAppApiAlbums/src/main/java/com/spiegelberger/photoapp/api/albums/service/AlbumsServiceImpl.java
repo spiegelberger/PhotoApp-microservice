@@ -9,6 +9,7 @@ import com.spiegelberger.photoapp.api.albums.data.AlbumEntity;
 @Service
 public class AlbumsServiceImpl implements AlbumsService {
 
+	// Temporally the albums are hard-coded. Later a database will be used
     @Override
     public List<AlbumEntity> getAlbums(String userId) {
         List<AlbumEntity> returnValue = new ArrayList<>();
