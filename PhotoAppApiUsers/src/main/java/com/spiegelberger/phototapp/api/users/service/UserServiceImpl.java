@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.spiegelberger.phototapp.api.users.data.AlbumsServiceClient;
 import com.spiegelberger.phototapp.api.users.data.UserEntity;
 import com.spiegelberger.phototapp.api.users.data.UserRepository;
 import com.spiegelberger.phototapp.api.users.shared.UserDto;
@@ -29,17 +30,21 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 	Environment env;
+	AlbumsServiceClient albumsServiceClient;
 //  Use this only if you do not use FeignClient:
-	RestTemplate restTemplate;
+//	RestTemplate restTemplate;
 	
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, Environment env, BCryptPasswordEncoder bCryptPasswordEncoder,
-			RestTemplate restTemplate) {
+	public UserServiceImpl(UserRepository userRepository, Environment env,
+			BCryptPasswordEncoder bCryptPasswordEncoder, AlbumsServiceClient albumsServiceClient
+//			RestTemplate restTemplate
+			) {
 		this.userRepository = userRepository;
 		this.env = env;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		this.restTemplate = restTemplate;
+		this.albumsServiceClient = albumsServiceClient;
+//		this.restTemplate = restTemplate;
 	}
 
 	@Override
@@ -102,12 +107,15 @@ public class UserServiceImpl implements UserService {
 		UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
 //	     Use these lines with RestTemplate:		
-		String albumsUrl = String.format(env.getProperty("albums.url"), userId);
-
-		ResponseEntity<List<AlbumResponseModel>> albumsListResponse = restTemplate.exchange(albumsUrl, HttpMethod.GET,
-				null, new ParameterizedTypeReference<List<AlbumResponseModel>>() {
-				});
-		List<AlbumResponseModel> albumsList = albumsListResponse.getBody();
+//		String albumsUrl = String.format(env.getProperty("albums.url"), userId);
+//		ResponseEntity<List<AlbumResponseModel>> albumsListResponse = restTemplate.exchange(albumsUrl, HttpMethod.GET,
+//				null, new ParameterizedTypeReference<List<AlbumResponseModel>>() {
+//				});
+//		List<AlbumResponseModel> albumsList = albumsListResponse.getBody();
+		
+		
+//		And this line with FeignClient:
+		List<AlbumResponseModel> albumsList = albumsServiceClient.getAlbums(userId);
 		
 		userDto.setAlbumsList(albumsList);
 
