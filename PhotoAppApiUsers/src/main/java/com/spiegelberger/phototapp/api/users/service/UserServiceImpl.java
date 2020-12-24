@@ -113,18 +113,17 @@ public class UserServiceImpl implements UserService {
 //				null, new ParameterizedTypeReference<List<AlbumResponseModel>>() {
 //				});
 //		List<AlbumResponseModel> albumsList = albumsListResponse.getBody();
-		
+				
+//		Logger informations for Sleuth:		
+		logger.info("Before calling albums microservice");	
 		
 //		And this line with FeignClient:
-		List<AlbumResponseModel> albumsList=null;
-		try {
-			albumsList = albumsServiceClient.getAlbums(userId);
-		} catch (FeignException e) {
-			logger.error(e.getLocalizedMessage());;
-		}
+		List<AlbumResponseModel> albumsList = albumsServiceClient.getAlbums(userId);
 		
+		logger.info("After calling albums microservice");
+	
 		userDto.setAlbumsList(albumsList);
-
+		
 		return userDto;
 	}
 
