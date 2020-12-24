@@ -6,23 +6,23 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.spiegelberger.phototapp.api.users.data.AlbumsServiceClient;
 import com.spiegelberger.phototapp.api.users.data.UserEntity;
 import com.spiegelberger.phototapp.api.users.data.UserRepository;
 import com.spiegelberger.phototapp.api.users.shared.UserDto;
 import com.spiegelberger.phototapp.api.users.ui.model.AlbumResponseModel;
+
+import feign.FeignException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 //  Use this only if you do not use FeignClient:
 //	RestTemplate restTemplate;
 	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, Environment env,
@@ -115,7 +116,12 @@ public class UserServiceImpl implements UserService {
 		
 		
 //		And this line with FeignClient:
-		List<AlbumResponseModel> albumsList = albumsServiceClient.getAlbums(userId);
+		List<AlbumResponseModel> albumsList=null;
+		try {
+			albumsList = albumsServiceClient.getAlbums(userId);
+		} catch (FeignException e) {
+			logger.error(e.getLocalizedMessage());;
+		}
 		
 		userDto.setAlbumsList(albumsList);
 
