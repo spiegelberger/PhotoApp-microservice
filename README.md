@@ -11,8 +11,8 @@ Spring Cloud Config Server,
 Spring Cloud Bus and Rabbit MQ, 
 Spring Boot Actuator, 
 Spring Security and JWT, 
-Tracing HTTP Requests with Spring Cloud Sleuth and Zipkin(Distributed tracing), 
-Aggregating log files in one place(Centralized logging) with ELK stack(Logstash, Elasticsearch, Kibana), 
-MYSQL database connection
+Tracing HTTP Requests with Spring Cloud Sleuth and Zipkin (Distributed tracing), 
+Aggregating log files in one place (Centralized logging) with ELK stack (Logstash, Elasticsearch, Kibana), 
+MYSQL database connection. 
 
-I plan to make several changes to this project in the future. First, I’m going to replace the Zuul API with a Spring Cloud ApiGateway.
+I plan to make several changes to this project in the future. First, I’m going to replace the Zuul API Gateway with a Spring Cloud API Gateway.
