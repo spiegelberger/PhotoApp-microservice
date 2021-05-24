@@ -15,4 +15,4 @@ Tracing HTTP Requests with Spring Cloud Sleuth and Zipkin (Distributed tracing),
 Aggregating log files in one place (Centralized logging) with ELK stack (Logstash, Elasticsearch, Kibana), 
 MYSQL database connection. 
 
-I plan to make several changes to this project in the future. First, I’m going to replace the Zuul API Gateway with a Spring Cloud API Gateway.
+The dockerfiles can be found on my dockerhub account: https://hub.docker.com/u/spiegelberger
