@@ -15,4 +15,4 @@ Tracing HTTP Requests with Spring Cloud Sleuth and Zipkin (Distributed tracing),
 Aggregating log files in one place (Centralized logging) with ELK stack (Logstash, Elasticsearch, Kibana), 
 MYSQL database connection. 
 
-The dockerfiles can be found on my dockerhub account: https://hub.docker.com/u/spiegelberger
+The dockerfiles can be found on Docker Hub: https://hub.docker.com/u/spiegelberger
